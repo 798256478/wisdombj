@@ -1,10 +1,11 @@
-package com.zhaowenbin.wisdombj;
+package com.zhaowenbin.wisdombj.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zhaowenbin.wisdombj.R;
 import com.zhaowenbin.wisdombj.adapter.GuideAdapter;
-import com.zhaowenbin.wisdombj.utils.ConstantValueUtil;
+import com.zhaowenbin.wisdombj.utils.ConstantUtil;
 import com.zhaowenbin.wisdombj.utils.SpUtil;
 
 import android.R.integer;
@@ -110,7 +111,7 @@ public class GuideActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		SpUtil.putBoolean(this, ConstantValueUtil.FIRST_INTER, false);
+		SpUtil.putBoolean(this, ConstantUtil.FIRST_INTER, false);
 		startActivity(new Intent(this, MainActivity.class));
 		finish();
 	}

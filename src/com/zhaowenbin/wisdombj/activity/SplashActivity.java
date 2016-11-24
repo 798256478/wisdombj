@@ -1,6 +1,7 @@
-package com.zhaowenbin.wisdombj;
+package com.zhaowenbin.wisdombj.activity;
 
-import com.zhaowenbin.wisdombj.utils.ConstantValueUtil;
+import com.zhaowenbin.wisdombj.R;
+import com.zhaowenbin.wisdombj.utils.ConstantUtil;
 import com.zhaowenbin.wisdombj.utils.SpUtil;
 
 import android.app.Activity;
@@ -60,7 +61,7 @@ public class SplashActivity extends Activity {
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				Boolean isFirstInter = SpUtil.getBoolean(getApplicationContext(), ConstantValueUtil.FIRST_INTER, true);
+				Boolean isFirstInter = SpUtil.getBoolean(getApplicationContext(), ConstantUtil.FIRST_INTER, true);
 				if(isFirstInter){
 					startActivity(new Intent(getApplicationContext(), GuideActivity.class));
 				} else {
