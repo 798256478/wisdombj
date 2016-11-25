@@ -977,6 +977,7 @@ containing a value of this type.
         public static final int abc_search_url_text_selected=0x7f070001;
         public static final int selector_bottom_tab_text_color=0x7f070004;
         public static final int selector_enter_btn_text_color=0x7f070005;
+        public static final int selector_left_menu_text_color=0x7f070006;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1236,19 +1237,20 @@ containing a value of this type.
         public static final int selector_bottom_setting_tab_bg=0x7f020080;
         public static final int selector_bottom_wisdom_tab_bg=0x7f020081;
         public static final int selector_enter_btn_bg=0x7f020082;
-        public static final int setting=0x7f020083;
-        public static final int setting_press=0x7f020084;
-        public static final int shape_guide_point=0x7f020085;
-        public static final int shape_guide_red_point=0x7f020086;
-        public static final int smartservice=0x7f020087;
-        public static final int smartservice_press=0x7f020088;
-        public static final int splash_bg_newyear=0x7f020089;
-        public static final int splash_horse_newyear=0x7f02008a;
-        public static final int title_red_bg=0x7f02008b;
-        public static final int topic_title_arr=0x7f02008c;
-        public static final int topnews_item_default=0x7f02008d;
-        public static final int xsearch_loading=0x7f02008e;
-        public static final int xsearch_msg_pull_arrow_down=0x7f02008f;
+        public static final int selector_left_menu_img_bg=0x7f020083;
+        public static final int setting=0x7f020084;
+        public static final int setting_press=0x7f020085;
+        public static final int shape_guide_point=0x7f020086;
+        public static final int shape_guide_red_point=0x7f020087;
+        public static final int smartservice=0x7f020088;
+        public static final int smartservice_press=0x7f020089;
+        public static final int splash_bg_newyear=0x7f02008a;
+        public static final int splash_horse_newyear=0x7f02008b;
+        public static final int title_red_bg=0x7f02008c;
+        public static final int topic_title_arr=0x7f02008d;
+        public static final int topnews_item_default=0x7f02008e;
+        public static final int xsearch_loading=0x7f02008f;
+        public static final int xsearch_msg_pull_arrow_down=0x7f020090;
     }
     public static final class id {
         public static final int action_bar=0x7f050021;
@@ -1262,7 +1264,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f05001b;
         public static final int action_menu_presenter=0x7f05001c;
         public static final int action_mode_close_button=0x7f050029;
-        public static final int action_settings=0x7f050053;
+        public static final int action_settings=0x7f050056;
         public static final int activity_chooser_view_content=0x7f05002a;
         public static final int always=0x7f050011;
         public static final int beginning=0x7f050016;
@@ -1277,22 +1279,24 @@ containing a value of this type.
         public static final int end=0x7f050018;
         public static final int expand_activities_button=0x7f05002b;
         public static final int expanded_menu=0x7f050031;
-        public static final int fl_left_menu=0x7f05004f;
+        public static final int fl_left_menu=0x7f050051;
         public static final int fl_main=0x7f050045;
-        public static final int fl_tab_content=0x7f050047;
+        public static final int fl_tab_content=0x7f050048;
         public static final int fullscreen=0x7f050003;
         public static final int home=0x7f050019;
         public static final int homeAsUp=0x7f05000b;
         public static final int icon=0x7f05002f;
         public static final int ifRoom=0x7f050010;
         public static final int image=0x7f05002c;
-        public static final int iv_left_menu_btn=0x7f050052;
+        public static final int iv_left_menu_btn=0x7f050055;
         public static final int iv_red_point=0x7f050044;
         public static final int iv_splash_img=0x7f050046;
         public static final int left=0x7f050000;
         public static final int listMode=0x7f050007;
         public static final int list_item=0x7f05002e;
         public static final int ll_guide_point=0x7f050043;
+        public static final int ll_loading=0x7f050047;
+        public static final int lv_left_menu=0x7f050050;
         public static final int margin=0x7f050002;
         public static final int middle=0x7f050017;
         public static final int never=0x7f05000f;
@@ -1301,12 +1305,12 @@ containing a value of this type.
         public static final int progress_circular=0x7f05001d;
         public static final int progress_horizontal=0x7f05001e;
         public static final int radio=0x7f050034;
-        public static final int rb_gov=0x7f05004d;
-        public static final int rb_home=0x7f05004a;
-        public static final int rb_news=0x7f05004b;
-        public static final int rb_setting=0x7f05004e;
-        public static final int rb_wisdom=0x7f05004c;
-        public static final int rg_bottom_tab=0x7f050049;
+        public static final int rb_gov=0x7f05004e;
+        public static final int rb_home=0x7f05004b;
+        public static final int rb_news=0x7f05004c;
+        public static final int rb_setting=0x7f05004f;
+        public static final int rb_wisdom=0x7f05004d;
+        public static final int rg_bottom_tab=0x7f05004a;
         public static final int right=0x7f050001;
         public static final int search_badge=0x7f050037;
         public static final int search_bar=0x7f050036;
@@ -1323,16 +1327,17 @@ containing a value of this type.
         public static final int showCustom=0x7f05000d;
         public static final int showHome=0x7f05000a;
         public static final int showTitle=0x7f05000c;
-        public static final int slidingmenumain=0x7f050050;
+        public static final int slidingmenumain=0x7f050053;
         public static final int split_action_bar=0x7f050023;
         public static final int submit_area=0x7f05003e;
         public static final int tabMode=0x7f050008;
         public static final int title=0x7f050030;
         public static final int top_action_bar=0x7f050025;
-        public static final int tv_top_title=0x7f050051;
+        public static final int tv_left_menu=0x7f050052;
+        public static final int tv_top_title=0x7f050054;
         public static final int up=0x7f050026;
         public static final int useLogo=0x7f050009;
-        public static final int vp_content=0x7f050048;
+        public static final int vp_content=0x7f050049;
         public static final int vp_guide_step=0x7f050041;
         public static final int withText=0x7f050012;
     }
@@ -1392,10 +1397,11 @@ containing a value of this type.
         public static final int base_pager=0x7f03001b;
         public static final int fragment_content=0x7f03001c;
         public static final int fragment_left_menu=0x7f03001d;
-        public static final int layout_left_menu=0x7f03001e;
-        public static final int slidingmenumain=0x7f03001f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030020;
-        public static final int top_title=0x7f030021;
+        public static final int left_menu=0x7f03001e;
+        public static final int list_item_left_menu=0x7f03001f;
+        public static final int slidingmenumain=0x7f030020;
+        public static final int support_simple_spinner_dropdown_item=0x7f030021;
+        public static final int top_title=0x7f030022;
     }
     public static final class menu {
         public static final int splash=0x7f0c0000;

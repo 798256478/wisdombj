@@ -1,6 +1,6 @@
-package com.zhaowenbin.wisdombj.pager;
+package com.zhaowenbin.wisdombj.pager.news;
 
-import com.zhaowenbin.wisdombj.R;
+import com.zhaowenbin.wisdombj.pager.base.NewsBasePager;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -8,21 +8,20 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-public class GovPager extends BasePager {
+public class TopicMenuDetailPager extends NewsBasePager {
 
-	public GovPager(Activity activity) {
-		super(activity);
+	public TopicMenuDetailPager(Activity mActivity) {
+		super(mActivity);
 	}
 
 	@Override
-	public void initData() {
-		tvTopTitle.setText("政务");
+	public View initView() {
 		TextView textView = new TextView(mActivity);
 		textView.setTextColor(new Color().RED);
 		textView.setTextSize(22);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("政务");
-		flTabContent.addView(textView);
+		textView.setText("侧边栏详情页-专题");
+		return textView;
 	}
 
 }

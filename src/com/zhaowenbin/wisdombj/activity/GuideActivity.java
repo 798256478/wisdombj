@@ -25,11 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class GuideActivity extends Activity implements OnClickListener{
-	private ViewPager mVpGuideStep;
-	private Button mBtnEnterMain;
-	private LinearLayout mLlGuidePoint;
+	private ViewPager vpGuideStep;
+	private Button btnEnterMain;
+	private LinearLayout llGuidePoint;
 	private List<ImageView> mImageViews;
-	private ImageView mIvRedPoint;
+	private ImageView ivRedPoint;
 	private int pointDx;
 
 	@Override
@@ -44,15 +44,15 @@ public class GuideActivity extends Activity implements OnClickListener{
 
 	private void initAdapter() {
 		GuideAdapter guideAdapter = new GuideAdapter(mImageViews);
-		mVpGuideStep.setAdapter(guideAdapter);
-		mVpGuideStep.setOnPageChangeListener(new OnPageChangeListener() {
+		vpGuideStep.setAdapter(guideAdapter);
+		vpGuideStep.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
 				if(arg0 < mImageViews.size() - 1){
-					mBtnEnterMain.setVisibility(View.INVISIBLE);
+					btnEnterMain.setVisibility(View.INVISIBLE);
 				} else {
-					mBtnEnterMain.setVisibility(View.VISIBLE);
+					btnEnterMain.setVisibility(View.VISIBLE);
 				}
 			}
 			
@@ -60,7 +60,7 @@ public class GuideActivity extends Activity implements OnClickListener{
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 				params.leftMargin = (int) (((float)pointDx) * arg1) + arg0 * pointDx;
-				mIvRedPoint.setLayoutParams(params);
+				ivRedPoint.setLayoutParams(params);
 			}
 			
 			@Override
@@ -86,27 +86,27 @@ public class GuideActivity extends Activity implements OnClickListener{
 			if(i > 0){
 				pointView.setLayoutParams(params);
 			}
-			mLlGuidePoint.addView(pointView);
+			llGuidePoint.addView(pointView);
 		}
 		
-		mIvRedPoint.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+		ivRedPoint.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
 			@Override
 			public void onGlobalLayout() {
-				mIvRedPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				ivRedPoint.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 				
-				pointDx = mLlGuidePoint.getChildAt(1).getLeft() -  mLlGuidePoint.getChildAt(0).getLeft();
+				pointDx = llGuidePoint.getChildAt(1).getLeft() -  llGuidePoint.getChildAt(0).getLeft();
 			}
 		});
 	}
 
 	private void initView() {
-		mVpGuideStep = (ViewPager) findViewById(R.id.vp_guide_step);
-		mBtnEnterMain = (Button) findViewById(R.id.btn_enter_main);
-		mLlGuidePoint = (LinearLayout) findViewById(R.id.ll_guide_point);
-		mIvRedPoint = (ImageView) findViewById(R.id.iv_red_point);
+		vpGuideStep = (ViewPager) findViewById(R.id.vp_guide_step);
+		btnEnterMain = (Button) findViewById(R.id.btn_enter_main);
+		llGuidePoint = (LinearLayout) findViewById(R.id.ll_guide_point);
+		ivRedPoint = (ImageView) findViewById(R.id.iv_red_point);
 		
-		mBtnEnterMain.setOnClickListener(this);
+		btnEnterMain.setOnClickListener(this);
 	}
 
 	@Override

@@ -7,12 +7,13 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zhaowenbin.wisdombj.R;
 import com.zhaowenbin.wisdombj.activity.MainActivity;
 import com.zhaowenbin.wisdombj.adapter.ContentPagerAdapter;
-import com.zhaowenbin.wisdombj.pager.BasePager;
-import com.zhaowenbin.wisdombj.pager.GovPager;
-import com.zhaowenbin.wisdombj.pager.HomePager;
-import com.zhaowenbin.wisdombj.pager.NewsPager;
-import com.zhaowenbin.wisdombj.pager.SettingPager;
-import com.zhaowenbin.wisdombj.pager.WisdomPager;
+import com.zhaowenbin.wisdombj.pager.base.BasePager;
+import com.zhaowenbin.wisdombj.pager.base.NewsBasePager;
+import com.zhaowenbin.wisdombj.pager.content.GovPager;
+import com.zhaowenbin.wisdombj.pager.content.HomePager;
+import com.zhaowenbin.wisdombj.pager.content.NewsPager;
+import com.zhaowenbin.wisdombj.pager.content.SettingPager;
+import com.zhaowenbin.wisdombj.pager.content.WisdomPager;
 
 import android.app.Activity;
 import android.support.v4.view.ViewPager;
@@ -25,7 +26,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 public class ContentFragment extends BaseFragment {
 
 	private ViewPager vpContent;
-	private List<BasePager> contentPagers;
+	private List<BasePager> mContentPagers;
 	private RadioGroup rgBottomTab;
 
 	@Override
@@ -37,6 +38,7 @@ public class ContentFragment extends BaseFragment {
 			
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				LeftMenuFragment.mCurrentSelected = 0;
 				switch (checkedId) {
 				case R.id.rb_home:
 					vpContent.setCurrentItem(0, false);
@@ -66,7 +68,7 @@ public class ContentFragment extends BaseFragment {
 			
 			@Override
 			public void onPageSelected(int arg0) {
-				contentPagers.get(arg0).initData();
+				mContentPagers.get(arg0).initData();
 			}
 			
 			@Override
@@ -91,14 +93,18 @@ public class ContentFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-		contentPagers = new ArrayList<BasePager>();
-		contentPagers.add(new HomePager(mActivity));
-		contentPagers.add(new NewsPager(mActivity));
-		contentPagers.add(new WisdomPager(mActivity));
-		contentPagers.add(new GovPager(mActivity));
-		contentPagers.add(new SettingPager(mActivity));
-		vpContent.setAdapter(new ContentPagerAdapter(contentPagers));
-		contentPagers.get(0).initData();
+		mContentPagers = new ArrayList<BasePager>();
+		mContentPagers.add(new HomePager(mActivity));
+		mContentPagers.add(new NewsPager(mActivity));
+		mContentPagers.add(new WisdomPager(mActivity));
+		mContentPagers.add(new GovPager(mActivity));
+		mContentPagers.add(new SettingPager(mActivity));
+		vpContent.setAdapter(new ContentPagerAdapter(mContentPagers));
+		mContentPagers.get(0).initData();
 		setLeftMenuEnable(false);
+	}
+	
+	public void setNewsContentPager(int position){
+		((NewsPager)mContentPagers.get(1)).setSelectedMenuDetailPager(position);
 	}
 }

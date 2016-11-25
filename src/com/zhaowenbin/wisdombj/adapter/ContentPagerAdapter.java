@@ -2,7 +2,7 @@ package com.zhaowenbin.wisdombj.adapter;
 
 import java.util.List;
 
-import com.zhaowenbin.wisdombj.pager.BasePager;
+import com.zhaowenbin.wisdombj.pager.base.BasePager;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 
 public class ContentPagerAdapter extends PagerAdapter {
 
-	private List<BasePager> contentPagers;
+	private List<BasePager> mContentPagers;
 
-	public ContentPagerAdapter(List<BasePager> contentPagers) {
-		this.contentPagers = contentPagers;
+	public ContentPagerAdapter(List<BasePager> mContentPagers) {
+		this.mContentPagers = mContentPagers;
 	}
 
 	@Override
 	public int getCount() {
-		return contentPagers.size();
+		return mContentPagers.size();
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ContentPagerAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		
-		View view = contentPagers.get(position).mRootView;
+		View view = mContentPagers.get(position).mRootView;
 		container.addView(view);
 		return view;
 	}

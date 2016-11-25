@@ -17,7 +17,7 @@ import android.view.animation.ScaleAnimation;
 
 public class SplashActivity extends Activity {
 
-	private View mIvSplashImg;
+	private View ivSplashImg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class SplashActivity extends Activity {
 
 	private void initAnimation() {
 		//旋转动画
-		RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		RotateAnimation rotateAnimation = new RotateAnimation(0, -360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotateAnimation.setDuration(1000);
 		rotateAnimation.setFillAfter(true);
 		//缩放动画
@@ -47,7 +47,7 @@ public class SplashActivity extends Activity {
 		animationSet.addAnimation(scaleAnimation);
 		animationSet.addAnimation(alphaAnimation);
 		//添加动画
-		mIvSplashImg.startAnimation(animationSet);
+		ivSplashImg.startAnimation(animationSet);
 		//动画状态监听
 		animationSet.setAnimationListener(new AnimationListener() {
 			
@@ -73,7 +73,7 @@ public class SplashActivity extends Activity {
 	}
 
 	private void initView() {
-		mIvSplashImg = findViewById(R.id.iv_splash_img);
+		ivSplashImg = findViewById(R.id.iv_splash_img);
 	}
 
 }

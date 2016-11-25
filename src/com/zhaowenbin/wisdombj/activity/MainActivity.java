@@ -8,6 +8,7 @@ import com.zhaowenbin.wisdombj.fragment.LeftMenuFragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -46,10 +47,10 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	private void initSlidingMenu() {
 		//设置侧边栏
-		setBehindContentView(R.layout.layout_left_menu);
+		setBehindContentView(R.layout.left_menu);
 		SlidingMenu menu = getSlidingMenu();
 		//设置侧滑以后预留的宽度
-		menu.setBehindOffset(150);
+		menu.setBehindOffset(350);
 		//设置滑动的方向，左滑或右滑
 		menu.setMode(SlidingMenu.LEFT);
 		//设置可拖拽的范围，默认只有边缘可拖拽
@@ -59,5 +60,14 @@ public class MainActivity extends SlidingFragmentActivity {
 		//设置下方视图在滚动式的缩放比例
 		menu.setBehindScrollScale(0.0f);
 	}
-
+	
+	public Fragment getSlidingMenuFragment(){
+		FragmentManager supportFragmentManager = getSupportFragmentManager();
+		return supportFragmentManager.findFragmentByTag(LEFT_MENU_FRAGMENT);
+	}
+	
+	public Fragment getContentFragment(){
+		FragmentManager supportFragmentManager = getSupportFragmentManager();
+		return supportFragmentManager.findFragmentByTag(CONTENT_FRAGMENT);
+	}
 }
