@@ -29,7 +29,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"/>
 		<activity
             android:name=".activity.MainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+            android:theme="@style/Theme.PageIndicatorDefaults"/>
     </application>
 
 </manifest>

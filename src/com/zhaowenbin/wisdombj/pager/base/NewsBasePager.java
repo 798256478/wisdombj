@@ -9,7 +9,7 @@ public abstract class NewsBasePager {
 
 	public NewsBasePager(Activity mActivity){
 		this.mActivity = mActivity;
-		this.mRootView = initView();
+		mRootView = initView();
 	}
 
 	public abstract View initView();

@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 public class NewsPager extends BasePager {
 	private List<NewsBasePager> mNewsMenuPagers;
+	private  NewsDataInfo dataInfo;
 	
 	public NewsPager(Activity activity) {
 		super(activity);
@@ -54,17 +55,15 @@ public class NewsPager extends BasePager {
 		httpUtils.send(HttpMethod.GET, ConstantUtil.NEWS_MENU_URL, new RequestCallBack<String>() {
 			@Override
 			public void onLoading(long total, long current, boolean isUploading) {
-				llLoding.setVisibility(View.VISIBLE);
 			}
 			
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
-				llLoding.setVisibility(View.INVISIBLE);
 				String jsonData = responseInfo.result;
 				parseJson(jsonData);
 				CacheUtil.setCache(mActivity, ConstantUtil.NEWS_MENU_URL, jsonData);
 				mNewsMenuPagers = new ArrayList<NewsBasePager>();
-				mNewsMenuPagers.add(new NewsMenuDetailPager(mActivity));
+				mNewsMenuPagers.add(new NewsMenuDetailPager(mActivity, dataInfo));
 				mNewsMenuPagers.add(new TopicMenuDetailPager(mActivity));
 				mNewsMenuPagers.add(new ArrImgMenuDetailPager(mActivity));
 				mNewsMenuPagers.add(new InteractMenuDetailPager(mActivity));
@@ -73,7 +72,6 @@ public class NewsPager extends BasePager {
 
 			@Override
 			public void onFailure(HttpException error, String msg) {
-				llLoding.setVisibility(View.INVISIBLE);
 				Log.i("NewsPager", "Õ¯¬Á«Î«Û ß∞‹");
 			}
 		});
@@ -81,7 +79,7 @@ public class NewsPager extends BasePager {
 
 	protected void parseJson(String jsonData) {
 		Gson gson = new Gson();
-		NewsDataInfo dataInfo = gson.fromJson(jsonData, NewsDataInfo.class);
+		dataInfo = gson.fromJson(jsonData, NewsDataInfo.class);
 		Fragment slidingMenuFragment = ((MainActivity)mActivity).getSlidingMenuFragment();
 		((LeftMenuFragment)slidingMenuFragment).setMenuData(dataInfo);
 	}

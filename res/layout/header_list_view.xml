@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" 
+    android:padding="5dp">
+    
+    <FrameLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        >
+        <ImageView 
+            android:id="@+id/iv_pull_arraw"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/common_listview_headview_red_arrow"
+            />
+        <ProgressBar 
+            android:id="@+id/pb_reflush"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            />
+    </FrameLayout>
+    
+    <LinearLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="3dp">
+        <TextView 
+            android:id="@+id/tv_reflush_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="下拉刷新"
+            android:textSize="16sp"
+            android:textColor="#f00"/>
+        <TextView 
+            android:id="@+id/tv_reflush_time"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="2016-11-28 15:25:05"/>
+    </LinearLayout>
+
+</LinearLayout>

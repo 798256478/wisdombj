@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res/com.zhaowenbin.wisdombj"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+        android:layout_height="200dp"
+	    android:layout_width="match_parent"
+	    >
+	    <com.zhaowenbin.wisdombj.view.CarouseViewPager
+	        android:id="@+id/cvp_lunbo"
+	        android:layout_height="match_parent"
+	        android:layout_width="match_parent">
+	        
+	    </com.zhaowenbin.wisdombj.view.CarouseViewPager>
+	    <RelativeLayout 
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:background="#6000"
+	        android:padding="5dp"
+	        android:layout_alignParentBottom="true"
+	        >
+	        <com.viewpagerindicator.CirclePageIndicator
+		        android:id="@+id/indicator"
+                android:layout_centerVertical="true"
+		        android:padding="10dip"
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:background="#0000"
+		        app:radius="5dp"
+		        app:fillColor="#F00"
+		        app:pageColor="#9ccc"
+		        app:strokeWidth="0dp"
+		        app1:centered="false"
+	       	>  
+	        </com.viewpagerindicator.CirclePageIndicator>
+	        <TextView
+	            android:id="@+id/tv_news_title" 
+	            android:layout_alignParentRight="true"
+	            android:layout_height="wrap_content"
+	            android:layout_width="wrap_content"
+	            android:text="新闻标题"
+	            android:textColor="#fff"
+	            android:textSize="16sp"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="10dp"
+	            />
+	    </RelativeLayout> 
+    </RelativeLayout>
+
+</LinearLayout>
