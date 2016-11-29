@@ -17,12 +17,12 @@ public class GovPager extends BasePager {
 
 	@Override
 	public void initData() {
-		tvTopTitle.setText("政务");
+		tvTopTitle.setText("鏀垮姟");
 		TextView textView = new TextView(mActivity);
 		textView.setTextColor(new Color().RED);
 		textView.setTextSize(22);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("政务");
+		textView.setText("鏀垮姟");
 		flTabContent.addView(textView);
 	}
 

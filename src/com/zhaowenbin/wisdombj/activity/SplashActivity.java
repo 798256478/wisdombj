@@ -29,26 +29,26 @@ public class SplashActivity extends Activity {
 	}
 
 	private void initAnimation() {
-		//Ğı×ª¶¯»­
+		//æ—‹è½¬åŠ¨ç”»
 		RotateAnimation rotateAnimation = new RotateAnimation(0, -360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		rotateAnimation.setDuration(1000);
 		rotateAnimation.setFillAfter(true);
-		//Ëõ·Å¶¯»­
+		//ç¼©æ”¾åŠ¨ç”»
 		ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		scaleAnimation.setDuration(1000);
 		scaleAnimation.setFillAfter(true);
-		//½¥±ä¶¯»­
+		//æ¸å˜åŠ¨ç”»
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
 		alphaAnimation.setDuration(2000);
 		alphaAnimation.setFillAfter(true);
-		//¶¯»­¼¯ºÏ
+		//åŠ¨ç”»é›†åˆ
 		AnimationSet animationSet = new AnimationSet(true);
 		animationSet.addAnimation(rotateAnimation);
 		animationSet.addAnimation(scaleAnimation);
 		animationSet.addAnimation(alphaAnimation);
-		//Ìí¼Ó¶¯»­
+		//æ·»åŠ åŠ¨ç”»
 		ivSplashImg.startAnimation(animationSet);
-		//¶¯»­×´Ì¬¼àÌı
+		//åŠ¨ç”»çŠ¶æ€ç›‘å¬
 		animationSet.setAnimationListener(new AnimationListener() {
 			
 			@Override

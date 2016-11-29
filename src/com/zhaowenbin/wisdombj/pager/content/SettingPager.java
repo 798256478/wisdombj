@@ -17,12 +17,12 @@ public class SettingPager extends BasePager {
 
 	@Override
 	public void initData() {
-		tvTopTitle.setText("ÉèÖÃ");
+		tvTopTitle.setText("è®¾ç½®");
 		TextView textView = new TextView(mActivity);
 		textView.setTextSize(22);
 		textView.setTextColor(new Color().RED);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("ÉèÖÃ");
+		textView.setText("è®¾ç½®");
 		flTabContent.addView(textView);
 		ivLeftMenuBtn.setVisibility(View.INVISIBLE);
 	}

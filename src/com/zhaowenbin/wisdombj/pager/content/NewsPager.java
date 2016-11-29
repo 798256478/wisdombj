@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewsPager extends BasePager {
 	private List<NewsBasePager> mNewsMenuPagers;
@@ -42,7 +43,7 @@ public class NewsPager extends BasePager {
 
 	@Override
 	public void initData() {
-		tvTopTitle.setText("ÐÂÎÅÖÐÐÄ");
+		tvTopTitle.setText("æ–°é—»ä¸­å¿ƒ");
 		String cache = CacheUtil.getCache(mActivity, ConstantUtil.NEWS_MENU_URL);
 		if(!TextUtils.isEmpty(cache)){
 			parseJson(cache);
@@ -72,7 +73,8 @@ public class NewsPager extends BasePager {
 
 			@Override
 			public void onFailure(HttpException error, String msg) {
-				Log.i("NewsPager", "ÍøÂçÇëÇóÊ§°Ü");
+				Toast.makeText(mActivity, "æ— ç½‘ç»œè¿žæŽ¥ï¼Œè¯·æ£€æŸ¥ç½‘ç»œè®¾ç½®", Toast.LENGTH_SHORT);
+				Log.i("NewsPager", "ç½‘ç»œè¿žæŽ¥å¤±è´¥");
 			}
 		});
 	}

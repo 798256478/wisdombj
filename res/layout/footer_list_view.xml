@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:gravity="center">
+    
+    <ProgressBar 
+        android:id="@+id/pv_load_more"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+	<TextView 
+	    android:id="@+id/tv_load_more"
+	    android:layout_marginLeft="20dp"
+	    android:layout_height="wrap_content"
+	    android:layout_width="wrap_content"
+	    android:text="正在加载更多"/>
+    
+</LinearLayout>

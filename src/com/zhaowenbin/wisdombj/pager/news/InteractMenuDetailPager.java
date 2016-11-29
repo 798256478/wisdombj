@@ -20,7 +20,7 @@ public class InteractMenuDetailPager extends NewsBasePager {
 		textView.setTextColor(new Color().RED);
 		textView.setTextSize(22);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("≤‡±ﬂ¿∏œÍ«È“≥-ª•∂Ø");
+		textView.setText("‰∫íÂä®");
 		return textView;
 	}
 

@@ -34,30 +34,30 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	private void initFragment() {
-		//³õÊ¼»¯fragment
+		//åˆå§‹åŒ–fragment
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		//¿ªÆôÊÂÎñ
+		//å¼€å¯äº‹åŠ¡
 		transaction = fragmentManager.beginTransaction();
-		//Ìæ»»²¼¾Ö
+		//æ›¿æ¢é¡µé¢
 		transaction.replace(R.id.fl_main, new ContentFragment(), CONTENT_FRAGMENT);
 		transaction.replace(R.id.fl_left_menu, new LeftMenuFragment(), LEFT_MENU_FRAGMENT);
-		//Ìá½»ÊÂÎñ
+		//æäº¤äº‹åŠ¡
 		transaction.commit();
 	}
 
 	private void initSlidingMenu() {
-		//ÉèÖÃ²à±ßÀ¸
+
 		setBehindContentView(R.layout.left_menu);
 		SlidingMenu menu = getSlidingMenu();
-		//ÉèÖÃ²à»¬ÒÔºóÔ¤ÁôµÄ¿í¶È
+
 		menu.setBehindOffset(350);
-		//ÉèÖÃ»¬¶¯µÄ·½Ïò£¬×ó»¬»òÓÒ»¬
+
 		menu.setMode(SlidingMenu.LEFT);
-		//ÉèÖÃ¿ÉÍÏ×§µÄ·¶Î§£¬Ä¬ÈÏÖ»ÓĞ±ßÔµ¿ÉÍÏ×§
+	 
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		//ÉèÖÃ½¥Èë½¥³öĞ§¹ûµÄÖµ
+
 		menu.setFadeDegree(0.35f);
-		//ÉèÖÃÏÂ·½ÊÓÍ¼ÔÚ¹ö¶¯Ê½µÄËõ·Å±ÈÀı
+
 		menu.setBehindScrollScale(0.0f);
 	}
 	

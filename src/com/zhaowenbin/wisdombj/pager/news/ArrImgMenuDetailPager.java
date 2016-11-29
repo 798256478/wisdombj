@@ -20,7 +20,7 @@ public class ArrImgMenuDetailPager extends NewsBasePager {
 		textView.setTextColor(new Color().RED);
 		textView.setTextSize(22);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("²à±ßÀ¸ÏêÇéÒ³-×éÍ¼");
+		textView.setText("ç»„å›¾");
 		return textView;
 	}
 

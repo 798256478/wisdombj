@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -167,7 +168,8 @@ public class NewsTabPager extends NewsBasePager {
 
 			@Override
 			public void onFailure(HttpException error, String msg) {
-				Log.i("NewsTabPager", "��������ʧ��");
+				Toast.makeText(mActivity, "无网络连接，请检查网络设置", Toast.LENGTH_SHORT);
+				Log.i("NewsTabPager", "网络连接失败");
 			}
 		});
 	}

@@ -11,14 +11,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView.OnScrollListener;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class PullToReflushListView extends ListView {
+public class PullToReflushListView extends ListView implements OnScrollListener{
 	
 	private static final int PULL_TO_REFLUSH = 0;
 	private static final int RELEASE_REFLUSH = 1;
@@ -52,9 +54,17 @@ public class PullToReflushListView extends ListView {
 	private void init() {
 		initHeader();
 		initFooter();
+		setOnScrollListener(this);
 	}
 
 	private void initFooter() {
+		footerView = View.inflate(getContext(), R.layout.footer_list_view, null);
+		pvLoadMore = (ProgressBar) footerView.findViewById(R.id.pv_load_more);
+		tvLoadMore = (TextView) footerView.findViewById(R.id.tv_load_more);
+		addFooterView(footerView);
+		footerView.measure(0, 0);
+		footerView.setPadding(0, - footerView.getMeasuredHeight(), 0, 0);
+		
 	}
 
 	private void initHeader() {
@@ -77,6 +87,9 @@ public class PullToReflushListView extends ListView {
 	
 	float startY = -1;
 	private OnUpdateStateListener onUpdateStateListener;
+	private View footerView;
+	private ProgressBar pvLoadMore;
+	private TextView tvLoadMore;
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		if(mCurrentState == REFLUSH){
@@ -134,18 +147,18 @@ public class PullToReflushListView extends ListView {
 		case PULL_TO_REFLUSH:
 			pbReflush.setVisibility(View.INVISIBLE);
 			ivPullArraw.startAnimation(rotateDownAnimation);
-			tvReflushTitle.setText("下拉刷新");
+			tvReflushTitle.setText("涓嬫媺鍒锋柊");
 			break;
 		case RELEASE_REFLUSH:
 			pbReflush.setVisibility(View.INVISIBLE);
 			ivPullArraw.startAnimation(rotateUpAnimation);
-			tvReflushTitle.setText("释放刷新");
+			tvReflushTitle.setText("閲婃斁鍒锋柊");
 			break;
 		case REFLUSH:
 			ivPullArraw.clearAnimation();
 			ivPullArraw.setVisibility(View.INVISIBLE);
 			pbReflush.setVisibility(View.VISIBLE);
-			tvReflushTitle.setText("正在刷新...");
+			tvReflushTitle.setText("姝ｅ湪鍒锋柊...");
 			break;		
 		default:
 			break;
@@ -166,7 +179,7 @@ public class PullToReflushListView extends ListView {
 		pbReflush.setVisibility(View.INVISIBLE);
 		ivPullArraw.setVisibility(View.VISIBLE);
 		ivPullArraw.startAnimation(rotateDownAnimation);
-		tvReflushTitle.setText("下拉刷新");
+		tvReflushTitle.setText("涓嬫媺鍒锋柊");
 		tvReflushTime.setText(getCurrentTime());
 		view.setPadding(0, padding, 0, 0);
 	}
@@ -176,4 +189,18 @@ public class PullToReflushListView extends ListView {
 		String currentTime = simpleDateFormat.format(new Date());
 		return currentTime;
 	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		if(scrollState == SCROLL_STATE_IDLE && getLastVisiblePosition() == getCount() - 1){
+			footerView.setPadding(0, 0, 0, 0);
+			setSelection(getCount() - 1);
+		}
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
+	}
+
 }

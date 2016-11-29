@@ -17,12 +17,12 @@ public class WisdomPager extends BasePager {
 
 	@Override
 	public void initData() {
-		tvTopTitle.setText("智慧服务");
+		tvTopTitle.setText("鏅烘収鏈嶅姟");
 		TextView textView = new TextView(mActivity);
 		textView.setTextSize(22);
 		textView.setTextColor(new Color().RED);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("智慧服务");
+		textView.setText("鏅烘収鏈嶅姟");
 		flTabContent.addView(textView);
 	}
 
