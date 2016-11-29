@@ -40,7 +40,6 @@ public class NewsMenuPagerAdapter extends PagerAdapter {
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		View view = newsTabPagers.get(position).mRootView;
-		newsTabPagers.get(position).initData();
 		container.addView(view);
 		return view;
 	}

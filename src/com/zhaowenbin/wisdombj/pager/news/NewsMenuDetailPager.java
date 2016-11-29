@@ -16,8 +16,13 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
 public class NewsMenuDetailPager extends NewsBasePager{
@@ -40,10 +45,22 @@ public class NewsMenuDetailPager extends NewsBasePager{
 		View view = View.inflate(mActivity, R.layout.page_news_menu, null);
 		vpNewsMenu = (ViewPager) view.findViewById(R.id.vp_news_menu);
         indicator = (TabPageIndicator)view.findViewById(R.id.indicator);
+        indicator.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(hasFocus){
+					menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+				} else {
+					menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+				}
+			}
+		});
         indicator.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
+				newsTabPagers.get(arg0).initData();
 				if(arg0 == 0){
 					menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 				}else {
@@ -71,5 +88,6 @@ public class NewsMenuDetailPager extends NewsBasePager{
 		NewsMenuPagerAdapter newsMenuPagerAdapter = new NewsMenuPagerAdapter(newsTabPagers, mDataInfo);
 		vpNewsMenu.setAdapter(newsMenuPagerAdapter);
         indicator.setViewPager(vpNewsMenu);
+        newsTabPagers.get(0).initData();
 	}
 }

@@ -5,12 +5,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,13 +26,17 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import com.zhaowenbin.wisdombj.R;
+import com.zhaowenbin.wisdombj.activity.NewDetailActivity;
 import com.zhaowenbin.wisdombj.adapter.CarouseAdapter;
 import com.zhaowenbin.wisdombj.adapter.NewsListAdapter;
 import com.zhaowenbin.wisdombj.domain.NewsDataInfo.NewsChildrenData;
 import com.zhaowenbin.wisdombj.domain.NewsTabDataBean;
 import com.zhaowenbin.wisdombj.pager.base.NewsBasePager;
 import com.zhaowenbin.wisdombj.utils.ConstantUtil;
+import com.zhaowenbin.wisdombj.utils.SpUtil;
 import com.zhaowenbin.wisdombj.view.CarouseViewPager;
+import com.zhaowenbin.wisdombj.view.PullToReflushListView;
+import com.zhaowenbin.wisdombj.view.PullToReflushListView.OnUpdateStateListener;
 
 public class NewsTabPager extends NewsBasePager {
 
@@ -37,8 +45,15 @@ public class NewsTabPager extends NewsBasePager {
 	private CarouseViewPager cvpLunbo;
 	private TextView tvNewsTitle;
 	private CirclePageIndicator indicator;
-	private ListView lvNews;
+	private PullToReflushListView ptrlvNews;
 	private View mHeaderView;
+	private Timer timer;
+	private int INIT = 0;
+	private int REFLUSH = 1;
+	private int MORE = 2;
+	private NewsListAdapter newsListAdapter;
+	private CarouseAdapter carouseAdapter;
+	private String ids = "";
 
 	public NewsTabPager(Activity mActivity, NewsChildrenData newsChildrenData) {
 		super(mActivity);
@@ -52,7 +67,33 @@ public class NewsTabPager extends NewsBasePager {
 		cvpLunbo = (CarouseViewPager) mHeaderView.findViewById(R.id.cvp_lunbo);
 		tvNewsTitle = (TextView) mHeaderView.findViewById(R.id.tv_news_title);
 		indicator = (CirclePageIndicator) mHeaderView.findViewById(R.id.indicator);
-		lvNews = (ListView) view.findViewById(R.id.lv_news);
+		ptrlvNews = (PullToReflushListView) view.findViewById(R.id.ptrlv_news);
+		
+		ptrlvNews.addHeaderView(mHeaderView);
+		
+		ptrlvNews.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ids = SpUtil.getString(mActivity, ConstantUtil.READ_NEWS_ID, "");
+				if(!ids.contains(newsTabDataBean.data.news.get(position - ptrlvNews.getHeaderViewsCount()).id + "")){
+					ids += newsTabDataBean.data.news.get(position - ptrlvNews.getHeaderViewsCount()).id + ",";
+				}
+				SpUtil.putString(mActivity, ConstantUtil.READ_NEWS_ID, ids);
+				TextView tvNewTitle = (TextView) view.findViewById(R.id.tv_new_title);
+				tvNewTitle.setTextColor(Color.GRAY);
+				Intent intent = new Intent(mActivity.getApplicationContext(), NewDetailActivity.class);
+				intent.putExtra("url", newsTabDataBean.data.news.get(position - ptrlvNews.getHeaderViewsCount()).url);
+				mActivity.startActivity(intent);
+			}
+		});
+		
+		ptrlvNews.setOnUpdateStateListener(new OnUpdateStateListener(){
+			public void onUpdateState(){
+				getDatafromService(REFLUSH);
+			}
+		});
 		
 		indicator.setOnPageChangeListener(new OnPageChangeListener() {
 			
@@ -74,10 +115,14 @@ public class NewsTabPager extends NewsBasePager {
 	
 	@Override
 	public void initData() {
-		getDatafromService();
+		if(timer != null && cvpLunbo != null){
+			timer.cancel();
+			cvpLunbo.setCurrentItem(0);
+		}
+		getDatafromService(INIT);
 	}
 
-	private void getDatafromService() {
+	private void getDatafromService(final int State) {
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.send(HttpMethod.GET, ConstantUtil.SERVICE_URL + mTabData.url, new RequestCallBack<String>() {
 
@@ -86,33 +131,38 @@ public class NewsTabPager extends NewsBasePager {
 				String result = responseInfo.result;
 				Gson gson = new Gson();
 				newsTabDataBean = gson.fromJson(result, NewsTabDataBean.class);
-				CarouseAdapter carouseAdapter = new CarouseAdapter(newsTabDataBean, mActivity, tvNewsTitle);
-				cvpLunbo.setAdapter(carouseAdapter);
-				indicator.setViewPager(cvpLunbo);
-				NewsListAdapter newsListAdapter = new NewsListAdapter(newsTabDataBean, mActivity);
-				lvNews.setAdapter(newsListAdapter);
-				lvNews.addHeaderView(mHeaderView);
-				tvNewsTitle.setText(newsTabDataBean.data.topnews.get(0).title);
-				Timer timer = new Timer();
-				timer.schedule(new TimerTask() {
+				if(State == INIT){
+					carouseAdapter = new CarouseAdapter(newsTabDataBean, mActivity, tvNewsTitle);
+					cvpLunbo.setAdapter(carouseAdapter);
+					indicator.setViewPager(cvpLunbo);
+					newsListAdapter = new NewsListAdapter(newsTabDataBean, mActivity);
+					ptrlvNews.setAdapter(newsListAdapter);
+					tvNewsTitle.setText(newsTabDataBean.data.topnews.get(0).title);
+					timer = new Timer();
+					timer.schedule(new TimerTask() {
 					
-					private int currentItem;
+						private int currentItem;
 
-					@Override
-					public void run() {
-						currentItem = cvpLunbo.getCurrentItem();
-						if(currentItem == cvpLunbo.getAdapter().getCount() - 1){
-							currentItem = -1;
-						}
-						mActivity.runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								cvpLunbo.setCurrentItem(currentItem + 1);
+						@Override
+						public void run() {
+							currentItem = cvpLunbo.getCurrentItem();
+							if(currentItem == cvpLunbo.getAdapter().getCount() - 1){
+								currentItem = -1;
 							}
-						});
-					}
-				}, 3000, 3000);
+							mActivity.runOnUiThread(new Runnable() {
+							
+								@Override
+								public void run() {
+									cvpLunbo.setCurrentItem(currentItem + 1);
+								}
+							});
+						}
+					}, 3000, 3000);
+				} else if (State == REFLUSH) {
+					carouseAdapter.notifyDataSetChanged();
+					newsListAdapter.notifyDataSetChanged();
+					ptrlvNews.updateCompleted();
+				}
 			}
 
 			@Override
@@ -121,5 +171,4 @@ public class NewsTabPager extends NewsBasePager {
 			}
 		});
 	}
-
 }

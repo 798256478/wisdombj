@@ -8,6 +8,7 @@ import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.support.v4.view.ViewPager;
 import android.text.format.Time;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class CarouseViewPager extends ViewPager {
@@ -35,9 +36,17 @@ public class CarouseViewPager extends ViewPager {
 			float moveY = arg0.getY();
 			float dX = moveX - downX;
 			float dY = moveY - downY;
-			if(dX > dY && dX > 5 && (getCurrentItem() == (getChildCount() - 1) || getCurrentItem() == 0)){
-				getParent().requestDisallowInterceptTouchEvent(false);
-			} else if(dY > dX && dY > 5){
+			if(Math.abs(dX) > Math.abs(dY)){
+				if(dX > 5){
+					if(getCurrentItem() == 0){
+						getParent().requestDisallowInterceptTouchEvent(false);
+					}
+				} else if(dX < -5){
+					if(getCurrentItem() == getAdapter().getCount() -1){
+						getParent().requestDisallowInterceptTouchEvent(false);
+					}
+				}	
+			}else if(Math.abs(dX) < Math.abs(dY) && Math.abs(dY) > 5){
 				getParent().requestDisallowInterceptTouchEvent(false);
 			}
 			break;

@@ -3,8 +3,11 @@ package com.zhaowenbin.wisdombj.adapter;
 import com.lidroid.xutils.BitmapUtils;
 import com.zhaowenbin.wisdombj.R;
 import com.zhaowenbin.wisdombj.domain.NewsTabDataBean;
+import com.zhaowenbin.wisdombj.utils.ConstantUtil;
+import com.zhaowenbin.wisdombj.utils.SpUtil;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -55,6 +58,12 @@ public class NewsListAdapter extends BaseAdapter {
 		mBitmapUtils.display(viewHolder.ivNewImg, newsTabDataBean.data.news.get(position).listimage);
 		viewHolder.ivNewImg.setScaleType(ScaleType.CENTER_CROP);
 		viewHolder.tvNewTitle.setText(newsTabDataBean.data.news.get(position).title);
+		String ids = SpUtil.getString(mActivity, ConstantUtil.READ_NEWS_ID, "");
+		if(ids.contains(newsTabDataBean.data.news.get(position).id + "")){
+			viewHolder.tvNewTitle.setTextColor(Color.GRAY);
+		} else {
+			viewHolder.tvNewTitle.setTextColor(Color.BLACK);
+		}
 		viewHolder.tvUpdateTime.setText(newsTabDataBean.data.news.get(position).pubdate);
 		return convertView;
 	}

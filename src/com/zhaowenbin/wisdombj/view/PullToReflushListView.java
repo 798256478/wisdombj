@@ -1,7 +1,9 @@
 package com.zhaowenbin.wisdombj.view;
 
-import com.zhaowenbin.wisdombj.R;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import com.zhaowenbin.wisdombj.R;
 import android.R.integer;
 import android.content.Context;
 import android.provider.ContactsContract.CommonDataKinds.Event;
@@ -74,10 +76,10 @@ public class PullToReflushListView extends ListView {
 	}
 	
 	float startY = -1;
-	float moveY = -1;
+	private OnUpdateStateListener onUpdateStateListener;
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		if(getFirstVisiblePosition() != 0){
+		if(mCurrentState == REFLUSH){
 			return super.onTouchEvent(ev);
 		}
 		switch (ev.getAction()) {
@@ -87,31 +89,42 @@ public class PullToReflushListView extends ListView {
 		case MotionEvent.ACTION_MOVE:
 			if(startY == -1){
 				startY = ev.getY();
-				Log.i("PullToReflushListView",   "....");
 			}
-			moveY = ev.getY();
+			float moveY = ev.getY();
 			float dY = moveY - startY;
-			int newPadding = (int) (padding + dY);
-			if(newPadding >= 0 && mCurrentState != RELEASE_REFLUSH){
-				mCurrentState  = RELEASE_REFLUSH;
-				updateState();
-			} else if(newPadding <0 && mCurrentState != PULL_TO_REFLUSH) {
-				mCurrentState  = PULL_TO_REFLUSH;
-				updateState();
+			if(dY > 0 && getFirstVisiblePosition() == 0){
+				int newPadding = (int) (padding + dY);
+				if(newPadding >= 0 && mCurrentState != RELEASE_REFLUSH){
+					mCurrentState  = RELEASE_REFLUSH;
+					updateState();
+				} else if(newPadding <0 && mCurrentState != PULL_TO_REFLUSH) {
+					mCurrentState  = PULL_TO_REFLUSH;
+					updateState();
+				}
+				view.setPadding(0, newPadding, 0, 0);
+				return true;
 			}
-
-			view.setPadding(0, newPadding, 0, 0);
 			break;
 		case MotionEvent.ACTION_UP:
 			if(mCurrentState == PULL_TO_REFLUSH){
-				view.setPadding(0, - view.getMeasuredHeight(), 0, 0);
+				view.setPadding(0, padding, 0, 0);
 			}else {
+				onUpdateStateListener.onUpdateState();
 				view.setPadding(0, 0, 0, 0);
 				mCurrentState = REFLUSH;
 				updateState();
 			}
 			break;			
-
+		case MotionEvent.ACTION_CANCEL:
+			if(mCurrentState == PULL_TO_REFLUSH){
+				view.setPadding(0, padding, 0, 0);
+			}else {
+				onUpdateStateListener.onUpdateState();
+				view.setPadding(0, 0, 0, 0);
+				mCurrentState = REFLUSH;
+				updateState();
+			}
+			break;	
 		}
 		return super.onTouchEvent(ev);
 	}
@@ -137,5 +150,30 @@ public class PullToReflushListView extends ListView {
 		default:
 			break;
 		}
+	}
+	
+	public interface OnUpdateStateListener{
+		void onUpdateState();
+	}
+
+	public void setOnUpdateStateListener(
+			OnUpdateStateListener onUpdateStateListener) {
+		this.onUpdateStateListener = onUpdateStateListener;
+	}
+
+	public void updateCompleted() {
+		mCurrentState = PULL_TO_REFLUSH;
+		pbReflush.setVisibility(View.INVISIBLE);
+		ivPullArraw.setVisibility(View.VISIBLE);
+		ivPullArraw.startAnimation(rotateDownAnimation);
+		tvReflushTitle.setText("ÏÂÀ­Ë¢ÐÂ");
+		tvReflushTime.setText(getCurrentTime());
+		view.setPadding(0, padding, 0, 0);
+	}
+
+	private String getCurrentTime() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = simpleDateFormat.format(new Date());
+		return currentTime;
 	}
 }

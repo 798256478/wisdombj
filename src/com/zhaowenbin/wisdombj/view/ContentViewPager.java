@@ -19,5 +19,10 @@ public class ContentViewPager extends ViewPager {
 	public boolean onTouchEvent(MotionEvent arg0) {
 		return true;
 	}
+	
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent arg0) {
+		return false;
+	}
 
 }
