@@ -1,6 +1,7 @@
 package com.zhaowenbin.wisdombj.adapter;
 
 import com.lidroid.xutils.BitmapUtils;
+import com.zhaowenbin.wisdombj.R;
 import com.zhaowenbin.wisdombj.domain.NewsTabDataBean;
 
 import android.app.Activity;
@@ -24,6 +25,7 @@ public class CarouseAdapter extends PagerAdapter {
 		this.mActivity = mActivity;
 		mBitmapUtils = new BitmapUtils(mActivity);
 		this.tvNewsTitle = tvNewsTitle;
+		mBitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
 	}
 
 	@Override

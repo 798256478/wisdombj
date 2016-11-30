@@ -43,7 +43,7 @@ public class NewsPager extends BasePager {
 
 	@Override
 	public void initData() {
-		tvTopTitle.setText("新闻中心");
+		tvTopTitle.setText("新闻");
 		String cache = CacheUtil.getCache(mActivity, ConstantUtil.NEWS_MENU_URL);
 		if(!TextUtils.isEmpty(cache)){
 			parseJson(cache);
@@ -66,7 +66,7 @@ public class NewsPager extends BasePager {
 				mNewsMenuPagers = new ArrayList<NewsBasePager>();
 				mNewsMenuPagers.add(new NewsMenuDetailPager(mActivity, dataInfo));
 				mNewsMenuPagers.add(new TopicMenuDetailPager(mActivity));
-				mNewsMenuPagers.add(new ArrImgMenuDetailPager(mActivity));
+				mNewsMenuPagers.add(new ArrImgMenuDetailPager(mActivity, ibArrayImgType));
 				mNewsMenuPagers.add(new InteractMenuDetailPager(mActivity));
 				setSelectedMenuDetailPager(0);
 			}
@@ -89,6 +89,13 @@ public class NewsPager extends BasePager {
 	public void setSelectedMenuDetailPager(int position){
 		flTabContent.removeAllViews();
 		flTabContent.addView(mNewsMenuPagers.get(position).mRootView);
+		tvTopTitle.setText(dataInfo.data.get(position).title);
+		mNewsMenuPagers.get(position).initData();
+		if(mNewsMenuPagers.get(position) instanceof ArrImgMenuDetailPager){
+			ibArrayImgType.setVisibility(View.VISIBLE);
+		} else {
+			ibArrayImgType.setVisibility(View.INVISIBLE);
+		}
 	}
 
 }

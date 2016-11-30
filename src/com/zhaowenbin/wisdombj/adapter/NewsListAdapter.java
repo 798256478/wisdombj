@@ -25,6 +25,7 @@ public class NewsListAdapter extends BaseAdapter {
 		this.newsTabDataBean =  newsTabDataBean;
 		this.mActivity = mActivity;
 		mBitmapUtils = new BitmapUtils(mActivity);
+		mBitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
 	}
 
 	@Override

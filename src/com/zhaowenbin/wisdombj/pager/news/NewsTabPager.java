@@ -10,7 +10,9 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -94,6 +96,10 @@ public class NewsTabPager extends NewsBasePager {
 			public void onUpdateState(){
 				getDatafromService(REFLUSH);
 			}
+			
+			public void onLoadState(){
+				getDatafromService(MORE);
+			}
 		});
 		
 		indicator.setOnPageChangeListener(new OnPageChangeListener() {
@@ -111,6 +117,27 @@ public class NewsTabPager extends NewsBasePager {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+		
+		cvpLunbo.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					timer.cancel();
+					break;
+				case MotionEvent.ACTION_MOVE:
+					
+					break;
+				case MotionEvent.ACTION_UP:
+					setTimmer();
+					break;					
+				default:
+					break;
+				}
+				return false;
+			}
+		});
 		return view;
 	}
 	
@@ -124,14 +151,28 @@ public class NewsTabPager extends NewsBasePager {
 	}
 
 	private void getDatafromService(final int State) {
+		String url;
+		if(State == MORE){
+			url = newsTabDataBean.data.more;
+		}else {
+			url = mTabData.url;
+		}
+		
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.send(HttpMethod.GET, ConstantUtil.SERVICE_URL + mTabData.url, new RequestCallBack<String>() {
+		httpUtils.send(HttpMethod.GET, ConstantUtil.SERVICE_URL + url, new RequestCallBack<String>() {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> responseInfo) {
 				String result = responseInfo.result;
 				Gson gson = new Gson();
-				newsTabDataBean = gson.fromJson(result, NewsTabDataBean.class);
+				if(State == MORE){
+				    NewsTabDataBean moreTabDataBean = gson.fromJson(result, NewsTabDataBean.class);
+					newsTabDataBean.data.news.addAll(moreTabDataBean.data.news);
+					newsListAdapter.notifyDataSetChanged();
+					ptrlvNews.loadCompleted();
+				}else {
+					newsTabDataBean = gson.fromJson(result, NewsTabDataBean.class);
+				}
 				if(State == INIT){
 					carouseAdapter = new CarouseAdapter(newsTabDataBean, mActivity, tvNewsTitle);
 					cvpLunbo.setAdapter(carouseAdapter);
@@ -139,26 +180,7 @@ public class NewsTabPager extends NewsBasePager {
 					newsListAdapter = new NewsListAdapter(newsTabDataBean, mActivity);
 					ptrlvNews.setAdapter(newsListAdapter);
 					tvNewsTitle.setText(newsTabDataBean.data.topnews.get(0).title);
-					timer = new Timer();
-					timer.schedule(new TimerTask() {
-					
-						private int currentItem;
-
-						@Override
-						public void run() {
-							currentItem = cvpLunbo.getCurrentItem();
-							if(currentItem == cvpLunbo.getAdapter().getCount() - 1){
-								currentItem = -1;
-							}
-							mActivity.runOnUiThread(new Runnable() {
-							
-								@Override
-								public void run() {
-									cvpLunbo.setCurrentItem(currentItem + 1);
-								}
-							});
-						}
-					}, 3000, 3000);
+					setTimmer();
 				} else if (State == REFLUSH) {
 					carouseAdapter.notifyDataSetChanged();
 					newsListAdapter.notifyDataSetChanged();
@@ -172,5 +194,28 @@ public class NewsTabPager extends NewsBasePager {
 				Log.i("NewsTabPager", "网络连接失败");
 			}
 		});
+	}
+	
+	private void setTimmer() {
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+		
+			private int currentItem;
+
+			@Override
+			public void run() {
+				currentItem = cvpLunbo.getCurrentItem();
+				if(currentItem == cvpLunbo.getAdapter().getCount() - 1){
+					currentItem = -1;
+				}
+				mActivity.runOnUiThread(new Runnable() {
+				
+					@Override
+					public void run() {
+						cvpLunbo.setCurrentItem(currentItem + 1);
+					}
+				});
+			}
+		}, 3000, 3000);
 	}
 }

@@ -13,6 +13,7 @@ public class NewsDataInfo {
 		public int id;
 		public String title;
 		public int type;
+		public String url;
 		@Override
 		public String toString() {
 			return "data [children=" + children + ", id=" + id + ", title="

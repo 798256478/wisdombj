@@ -36,7 +36,6 @@ public class NewsMenuDetailPager extends NewsBasePager{
 	public NewsMenuDetailPager(Activity mActivity, NewsDataInfo dataInfo) {
 		super(mActivity);
 		mDataInfo = dataInfo;
-		initData();
 	}
 
 	@Override

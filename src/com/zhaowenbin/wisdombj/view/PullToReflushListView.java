@@ -90,6 +90,7 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	private View footerView;
 	private ProgressBar pvLoadMore;
 	private TextView tvLoadMore;
+	private boolean isLoading;
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		if(mCurrentState == REFLUSH){
@@ -122,7 +123,9 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 			if(mCurrentState == PULL_TO_REFLUSH){
 				view.setPadding(0, padding, 0, 0);
 			}else {
-				onUpdateStateListener.onUpdateState();
+				if(onUpdateStateListener != null){
+					onUpdateStateListener.onUpdateState();
+				}
 				view.setPadding(0, 0, 0, 0);
 				mCurrentState = REFLUSH;
 				updateState();
@@ -167,6 +170,7 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	
 	public interface OnUpdateStateListener{
 		void onUpdateState();
+		void onLoadState();
 	}
 
 	public void setOnUpdateStateListener(
@@ -183,6 +187,11 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 		tvReflushTime.setText(getCurrentTime());
 		view.setPadding(0, padding, 0, 0);
 	}
+	
+	public void loadCompleted(){
+		isLoading = false;
+		footerView.setPadding(0, 0, 0, 0);
+	}
 
 	private String getCurrentTime() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -193,8 +202,14 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		if(scrollState == SCROLL_STATE_IDLE && getLastVisiblePosition() == getCount() - 1){
-			footerView.setPadding(0, 0, 0, 0);
-			setSelection(getCount() - 1);
+			if(!isLoading){
+				isLoading = true;
+				if(onUpdateStateListener != null){
+					onUpdateStateListener.onLoadState();
+				}
+				footerView.setPadding(0, 0, 0, 0);
+				setSelection(getCount() - 1);
+			}
 		}
 	}
 

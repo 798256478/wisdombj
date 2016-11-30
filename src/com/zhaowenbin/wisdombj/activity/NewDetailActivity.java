@@ -47,9 +47,6 @@ public class NewDetailActivity extends Activity implements OnClickListener{
 		ibBack.setOnClickListener(this);
 		ibTextSize.setOnClickListener(this);
 		ibShare.setOnClickListener(this);
-		wvNewDetail.loadUrl(url);
-		settings = wvNewDetail.getSettings();
-		settings.setJavaScriptEnabled(true);
 		wvNewDetail.setWebChromeClient(new WebChromeClient(){
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
@@ -75,6 +72,10 @@ public class NewDetailActivity extends Activity implements OnClickListener{
 				return true;
 			}
 		});
+		
+		settings = wvNewDetail.getSettings();
+		settings.setJavaScriptEnabled(true);
+		wvNewDetail.loadUrl(url);
 	}
 	
 	private void showSetTextSizeDialog() {

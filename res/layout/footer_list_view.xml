@@ -8,7 +8,9 @@
     <ProgressBar 
         android:id="@+id/pv_load_more"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:indeterminateDrawable="@drawable/shape_progress"
+        />
 	<TextView 
 	    android:id="@+id/tv_load_more"
 	    android:layout_marginLeft="20dp"
