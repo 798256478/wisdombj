@@ -1,28 +1,29 @@
 package com.zhaowenbin.wisdombj.adapter;
 
-import com.lidroid.xutils.BitmapUtils;
 import com.zhaowenbin.wisdombj.R;
 import com.zhaowenbin.wisdombj.domain.ArrayImgDataBean;
+import com.zhaowenbin.wisdombj.utils.MyBitMapUtil;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class ArrImgListAdapter extends BaseAdapter {
 
 	private ArrayImgDataBean arrayImgDataBean;
 	private Activity mActivity;
-	private BitmapUtils mBitmapUtils;
+	private MyBitMapUtil mBitmapUtils;
 
 	public ArrImgListAdapter(ArrayImgDataBean arrayImgDataBean,
 			Activity mActivity) {
 		this.arrayImgDataBean = arrayImgDataBean;
 		this.mActivity = mActivity;
-		mBitmapUtils = new BitmapUtils(mActivity);
+		//mBitmapUtils = new BitmapUtils(mActivity);
+		//mBitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
+		mBitmapUtils = new MyBitMapUtil();
 		mBitmapUtils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
 	}
 
@@ -53,6 +54,7 @@ public class ArrImgListAdapter extends BaseAdapter {
 		}else{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
+		//mBitmapUtils.display(viewHolder.ivImage, arrayImgDataBean.data.news.get(position).listimage);
 		mBitmapUtils.display(viewHolder.ivImage, arrayImgDataBean.data.news.get(position).listimage);
 		viewHolder.tvTitle.setText(arrayImgDataBean.data.news.get(position).title);
 		return convertView;

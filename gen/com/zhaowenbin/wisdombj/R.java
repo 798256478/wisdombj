@@ -1966,17 +1966,18 @@ containing a value of this type.
         public static final int list_header_carouse=0x7f030024;
         public static final int list_item_left_menu=0x7f030025;
         public static final int page_array_img=0x7f030026;
-        public static final int page_news_menu=0x7f030027;
-        public static final int page_news_tab=0x7f030028;
-        public static final int skyblue_editpage=0x7f030029;
-        public static final int skyblue_editpage_at_layout=0x7f03002a;
-        public static final int skyblue_editpage_inc_image_layout=0x7f03002b;
-        public static final int skyblue_share_actionbar=0x7f03002c;
-        public static final int skyblue_share_platform_list=0x7f03002d;
-        public static final int skyblue_share_platform_list_item=0x7f03002e;
-        public static final int slidingmenumain=0x7f03002f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030030;
-        public static final int top_title=0x7f030031;
+        public static final int page_main=0x7f030027;
+        public static final int page_news_menu=0x7f030028;
+        public static final int page_news_tab=0x7f030029;
+        public static final int skyblue_editpage=0x7f03002a;
+        public static final int skyblue_editpage_at_layout=0x7f03002b;
+        public static final int skyblue_editpage_inc_image_layout=0x7f03002c;
+        public static final int skyblue_share_actionbar=0x7f03002d;
+        public static final int skyblue_share_platform_list=0x7f03002e;
+        public static final int skyblue_share_platform_list_item=0x7f03002f;
+        public static final int slidingmenumain=0x7f030030;
+        public static final int support_simple_spinner_dropdown_item=0x7f030031;
+        public static final int top_title=0x7f030032;
     }
     public static final class menu {
         public static final int splash=0x7f0c0000;

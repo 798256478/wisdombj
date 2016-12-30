@@ -18,13 +18,14 @@ public class HomePager extends BasePager {
 
 	@Override
 	public void initData() {
+		View view = View.inflate(mActivity, R.layout.page_main, null);
 		tvTopTitle.setText("首页");
-		TextView textView = new TextView(mActivity);
+		/*TextView textView = new TextView(mActivity);
 		textView.setTextColor(new Color().RED);
 		textView.setTextSize(22);
 		textView.setGravity(Gravity.CENTER);
-		textView.setText("首页");
-		flTabContent.addView(textView);
+		textView.setText("首页");*/
+		flTabContent.addView(view);
 		ivLeftMenuBtn.setVisibility(View.INVISIBLE);
 	}
 

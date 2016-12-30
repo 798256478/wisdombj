@@ -38,8 +38,8 @@ import com.zhaowenbin.wisdombj.pager.base.NewsBasePager;
 import com.zhaowenbin.wisdombj.utils.ConstantUtil;
 import com.zhaowenbin.wisdombj.utils.SpUtil;
 import com.zhaowenbin.wisdombj.view.CarouseViewPager;
-import com.zhaowenbin.wisdombj.view.PullToReflushListView;
-import com.zhaowenbin.wisdombj.view.PullToReflushListView.OnUpdateStateListener;
+import com.zhaowenbin.wisdombj.view.PullToRefreshListView;
+import com.zhaowenbin.wisdombj.view.PullToRefreshListView.OnUpdateStateListener;
 
 public class NewsTabPager extends NewsBasePager {
 
@@ -48,7 +48,7 @@ public class NewsTabPager extends NewsBasePager {
 	private CarouseViewPager cvpLunbo;
 	private TextView tvNewsTitle;
 	private CirclePageIndicator indicator;
-	private PullToReflushListView ptrlvNews;
+	private PullToRefreshListView ptrlvNews;
 	private View mHeaderView;
 	private Timer timer;
 	private int INIT = 0;
@@ -70,7 +70,7 @@ public class NewsTabPager extends NewsBasePager {
 		cvpLunbo = (CarouseViewPager) mHeaderView.findViewById(R.id.cvp_lunbo);
 		tvNewsTitle = (TextView) mHeaderView.findViewById(R.id.tv_news_title);
 		indicator = (CirclePageIndicator) mHeaderView.findViewById(R.id.indicator);
-		ptrlvNews = (PullToReflushListView) view.findViewById(R.id.ptrlv_news);
+		ptrlvNews = (PullToRefreshListView) view.findViewById(R.id.ptrlv_news);
 		
 		ptrlvNews.addHeaderView(mHeaderView);
 		

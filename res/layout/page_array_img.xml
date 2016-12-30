@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     >
     
-    <com.zhaowenbin.wisdombj.view.PullToReflushListView
+    <com.zhaowenbin.wisdombj.view.PullToRefreshListView
         android:id="@+id/lv_array_img"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:cacheColorHint="#fff"
         android:divider="@null">
-    </com.zhaowenbin.wisdombj.view.PullToReflushListView>
+    </com.zhaowenbin.wisdombj.view.PullToRefreshListView>
     
     <GridView 
         android:id="@+id/gv_array_img"

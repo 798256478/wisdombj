@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class PullToReflushListView extends ListView implements OnScrollListener{
+public class PullToRefreshListView extends ListView implements OnScrollListener{
 	
 	private static final int PULL_TO_REFLUSH = 0;
 	private static final int RELEASE_REFLUSH = 1;
@@ -35,17 +35,17 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	private TextView tvReflushTime;
 	private int padding;
 
-	public PullToReflushListView(Context context) {
+	public PullToRefreshListView(Context context) {
 		super(context);
 		init();
 	}
 
-	public PullToReflushListView(Context context, AttributeSet attrs) {
+	public PullToRefreshListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 	}
 
-	public PullToReflushListView(Context context, AttributeSet attrs,
+	public PullToRefreshListView(Context context, AttributeSet attrs,
 			int defStyle) {
 		super(context, attrs, defStyle);
 		init();
@@ -63,7 +63,8 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 		tvLoadMore = (TextView) footerView.findViewById(R.id.tv_load_more);
 		addFooterView(footerView);
 		footerView.measure(0, 0);
-		footerView.setPadding(0, - footerView.getMeasuredHeight(), 0, 0);
+		mFooterPadding = - footerView.getMeasuredHeight();
+		footerView.setPadding(0, mFooterPadding, 0, 0);
 		
 	}
 
@@ -91,6 +92,7 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	private ProgressBar pvLoadMore;
 	private TextView tvLoadMore;
 	private boolean isLoading;
+	private int mFooterPadding;
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		if(mCurrentState == REFLUSH){
@@ -190,7 +192,7 @@ public class PullToReflushListView extends ListView implements OnScrollListener{
 	
 	public void loadCompleted(){
 		isLoading = false;
-		footerView.setPadding(0, 0, 0, 0);
+		footerView.setPadding(0, mFooterPadding, 0, 0);
 	}
 
 	private String getCurrentTime() {

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.zhaowenbin.wisdombj.view.PullToReflushListView 
+    <com.zhaowenbin.wisdombj.view.PullToRefreshListView 
         android:id="@+id/ptrlv_news"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -12,6 +12,6 @@
         android:cacheColorHint="#fff"
         >
        
-    </com.zhaowenbin.wisdombj.view.PullToReflushListView>
+    </com.zhaowenbin.wisdombj.view.PullToRefreshListView>
 
 </LinearLayout>
